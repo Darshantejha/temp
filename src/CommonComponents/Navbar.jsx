@@ -1,0 +1,81 @@
+import React, { useContext, useState } from "react";
+import { Menu, Drawer, Button, notification } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import "../index.css";
+import { BellTwoTone } from "@ant-design/icons";
+import AuthContext from "../context/auth/authContext";
+
+const { SubMenu } = Menu;
+const openNotification = (placement) => {
+  notification.info({
+    message: `Notification ${placement}`,
+    description:
+      "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+    placement,
+  });
+};
+function Navbar(props) {
+  const authContext = useContext(AuthContext);
+  const {logout} = authContext;
+  const [visible, setVisible] = useState(false);
+  function handleClick(event) {
+    localStorage.setItem("showSession","true");
+    setVisible(false);
+  }
+  const menuItems = [];
+  let childrens;
+  props.menu.forEach((item) => {
+    if (item.children === null && item.display!=="hidden") {
+      menuItems.push(
+        <Menu.Item key={item.key} icon={item.icon}>
+          <Link to={item.path}>{item.name}</Link>
+        </Menu.Item>
+      );
+    } else if(item.display!=="hidden") {
+      childrens=[];
+      item.children.forEach((child) => {
+        childrens.push(<Menu.Item key={child.key}>
+          <Link to={child.path}>{child.name}</Link>
+        </Menu.Item>);
+      })
+      menuItems.push(
+        <SubMenu key={item.key} icon={item.icon} title={item.name}>
+          {childrens}
+        </SubMenu>
+      );
+    }
+  });
+  return (
+    <nav className="navbar">
+      <Button
+        type="primary"
+        icon={<MenuOutlined />}
+        onClick={() => setVisible(true)}
+      />
+      <Drawer
+        title="IPRP"
+        placement="left"
+        onClose={() => setVisible(false)}
+        visible={visible}
+      >
+        <Menu theme="dark" defaultSelectedKeys={["/st/home"]} mode="inline" onClick={handleClick}>
+          {menuItems}
+        </Menu>
+      </Drawer>
+      <div style={{float:"right"}}>
+      <Button spin="true" onClick={openNotification} style={{marginRight:"10px"}}>
+        <BellTwoTone />
+      </Button>
+      <span>
+        <Button type="primary" danger style={{marginRight:"10px"}}
+       >
+         <a href="#"  onClick  = {()=>{logout();console.log("logout");}} >Log Out</a>
+        </Button>
+      </span>
+      </div>
+    </nav>
+  );
+}
+
+export default Navbar;

@@ -31,11 +31,11 @@ function Registration() {
             <Route path="/forum" element={<Forums />} />
             <Route path="/preview" element={<Preview />} />
             <Route path="/placement" element={<JNF />} />
-            <Route path="/placement/addNew/s1" element={<Step1J />} />
+            {/* <Route path="/placement/addNew/s1" element={<Step1J />} />
             <Route path="/placement/addNew/s2" element={<Step2J />} />
             <Route path="/placement/addNew/s3" element={<Step3J />} />
             <Route path="/placement/addNew/s4" element={<Step4J />} />
-            <Route path="/placement/addNew/s5" element={<Step5J />} />
+            <Route path="/placement/addNew/s5" element={<Step5J />} /> */}
             <Route path="/intern" element={<INF />} />
             <Route path="/intern/addNew" element={<Steps />} />
             <Route path="/preview/intern/job_id" element={<PreviewINF />} />

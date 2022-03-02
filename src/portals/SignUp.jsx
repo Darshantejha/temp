@@ -5,18 +5,18 @@ import Spinner from "../CommonComponents/Spinner";
 import AuthContext from "../context/auth/authContext";
 import AlertContext from "../context/alert/alertContext";
 import Alert from "../CommonComponents/Alert";
-import {Navigate} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 function Signup() {
   const authContext = useContext(AuthContext);
-  const alertContext =  useContext(AlertContext);
-  const {setAlert} = alertContext;
-  const{register,isAuthenticated,error,clearError} = authContext;
-  useEffect(()=>{
-    if(error=="User already exists"){
+  const alertContext = useContext(AlertContext);
+  const { setAlert } = alertContext;
+  const { register, isAuthenticated, error, clearError } = authContext;
+  useEffect(() => {
+    if (error == "User already exists") {
       setAlert(error);
       clearError();
     }
-  },[error,isAuthenticated,setAlert])
+  }, [error, isAuthenticated, setAlert]);
   const [companyName, setcompanyName] = useState("");
   const [companyWebsite, setcompanyWebsite] = useState("");
   // const [companySector, setcompanySector] = useState("");
@@ -35,7 +35,6 @@ function Signup() {
     e.preventDefault();
     console.log("email", email);
     const domain = email.slice(email.indexOf("@") + 1, email.lastIndexOf("."));
-    let is_mx_found;
     var domains = "gmail,outlook,hotmail,yahoo,rediff";
     console.log(domains.indexOf(domain));
     if (domains.indexOf(domain) === -1) {
@@ -45,8 +44,7 @@ function Signup() {
         .get(
           `http://apilayer.net/api/check?access_key=7f74bff4705f36dc6b4cfc468b4a3b5b&email=${email}`
         )
-        .then((resp) => setMx_Found(resp.data.mx_found))
-        // .then((resp) => console.log(resp.data.mx_found))
+        .then((resp) => console.log(resp.data))
         .catch((err) => console.log(err));
     }
     //  else alert("");
@@ -61,19 +59,25 @@ function Signup() {
     if (password !== confirmpassword || password === "")
       setisValidPassword(false);
     else setisValidPassword(true);
-    if(isValidEmail&&isValidPassword) await register({cemail:email,cname:companyName,cpassword:password,curl:companyWebsite});
+    if (isValidEmail && isValidPassword)
+      await register({
+        cemail: email,
+        cname: companyName,
+        cpassword: password,
+        curl: companyWebsite,
+      });
   };
-  if (isAuthenticated){ 
-    if(authContext.user===null){
-      <Spinner/>}
-    else{ 
-      return <Navigate to="/reg/" />
+  if (isAuthenticated) {
+    if (authContext.user === null) {
+      <Spinner />;
+    } else {
+      return <Navigate to="/reg/" />;
     }
   }
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Layout className="site-layout">
-      <Alert/>
+        <Alert />
         <div
           className="container-fluid"
           style={{

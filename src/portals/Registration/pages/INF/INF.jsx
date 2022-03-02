@@ -2,7 +2,6 @@ import React from "react";
 import "./introPage.css";
 import { Layout } from "antd";
 import { Link } from "react-router-dom";
-import { pdf, document, options } from "./../pdf";
 const { Content } = Layout;
 
 function INF() {

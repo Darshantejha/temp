@@ -42,7 +42,7 @@ function Signup() {
 
       axios
         .get(
-          `http://apilayer.net/api/check?access_key=7f74bff4705f36dc6b4cfc468b4a3b5b&email=${email}`
+          `http://apilayer.net/api/check?access_key=964f8e26ac3bd8bd478fdd3b9202ca7f&email=${email}`
         )
         .then((resp) => console.log(resp.data))
         .catch((err) => console.log(err));

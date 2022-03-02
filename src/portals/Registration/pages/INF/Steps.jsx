@@ -175,10 +175,11 @@ function Steps() {
             name="nest-messages"
             onFinish={onFinish}
             validateMessages={validateMessages}
-            initialValues={{
-              cname: user.cname,
-              cemail: user.cemail,
-            }}>
+            // initialValues={{
+            //   cname: user.cname,
+            //   cemail: user.cemail,
+            // }}
+          >
             <Form.Item
               name="cname"
               label="Company Name"
@@ -187,7 +188,9 @@ function Steps() {
                   required: true,
                 },
               ]}
-              value={user.cname}>
+              value="company name"
+              //  {user.cname}
+            >
               <Input disabled={ch === "n"} />
             </Form.Item>
             <Form.Item
@@ -198,7 +201,11 @@ function Steps() {
                   required: true,
                 },
               ]}>
-              <Input disabled={ch === "n"} value={user.cemail} />
+              <Input
+                disabled={ch === "n"}
+                value="email name"
+                // {user.cemail}
+              />
             </Form.Item>
 
             <Form.Item name="category" label="Industry Sector">
